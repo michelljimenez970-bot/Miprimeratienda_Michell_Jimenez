@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi tienda</title>
+  <style>
+    /* Paleta Tatis Makeup */
+    :root {
+      --rosa-fondo: #fff0f5;       /* fondo general, rosa muy claro */
+      --rosa-suave: #ffd6e7;       /* bordes y detalles */
+      --rosa-medio: #ff8fb8;       /* acentos */
+      --rosa-fuerte: #d81b78;      /* botones y destacados */
+      --rosa-oscuro: #ad1457;      /* hover y títulos */
+      --vino: #5c1a3a;             /* texto principal */
+      --texto-suave: #8a4a67;      /* texto secundario */
+    }
+
+    body {
+      font-family: system-ui, Arial, sans-serif;
+      background-color: var(--rosa-fondo);
+      color: var(--vino);
+      padding: 20px;
+      margin: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--rosa-oscuro);
+      margin-bottom: 8px;
+    }
+
+    .slogan {
+      color: var(--texto-suave);
+      font-size: 17px;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+
+    /* Beneficios de la tienda */
+
+    .beneficios {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+
+      background: linear-gradient(90deg, #d81b78, #f06292);
+      color: white;
+
+      padding: 14px;
+      margin-bottom: 30px;
+      border-radius: 12px;
+    }
+
+    .beneficios span {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Catálogo */
+
+    #productos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .producto {
+      border: 1px solid var(--rosa-suave);
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      width: 220px;
+      vertical-align: top;
+      box-shadow: 0 4px 12px rgba(216, 27, 120, 0.12);
+    }
+
+    .producto img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .producto h3 {
+      margin-bottom: 8px;
+      color: var(--vino);
+    }
+
+    .descripcion {
+      font-size: 14px;
+      color: var(--texto-suave);
+      min-height: 42px;
+    }
+
+    .precio {
+      font-size: 18px;
+      font-weight: bold;
+      color: var(--rosa-fuerte);
+    }
+
+    /* Botones */
+
+    .producto button {
+      background-color: var(--rosa-fuerte);
+      border: none;
+      color: white;
+      padding: 9px 12px;
+      margin-top: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .producto button:hover {
+      opacity: 0.85;
+    }
+
+    /* Carrito */
+
+    .carrito {
+      margin-top: 35px;
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--rosa-suave);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(216, 27, 120, 0.12);
+      color: var(--vino);
+      text-align: left;
+      display: inline-block;
+      min-width: 320px;
+    }
+
+    .carrito h2 {
+      margin-top: 0;
+      color: var(--rosa-oscuro);
+    }
+
+    #lista-carrito {
+      padding-left: 20px;
+    }
+
+    #lista-carrito li {
+      margin-bottom: 8px;
+    }
+
+    .resumen {
+      border-top: 1px solid var(--rosa-suave);
+      margin-top: 15px;
+      padding-top: 10px;
+    }
+
+    .total {
+      font-size: 19px;
+      color: var(--rosa-oscuro);
+    }
+
+    /* Botón vaciar (rosa claro con borde, acción secundaria) */
+
+    .vaciar {
+      background-color: var(--rosa-suave);
+      border: 1px solid var(--rosa-medio);
+      color: var(--rosa-oscuro);
+      padding: 9px 12px;
+      margin-top: 10px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    /* Botón finalizar (acción principal) */
+
+    .finalizar {
+      background-color: var(--rosa-fuerte);
+      border: none;
+      color: white;
+      padding: 9px 12px;
+      margin-top: 10px;
+      margin-left: 5px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .vaciar:hover,
+    .finalizar:hover {
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <style>
+    .header-tatis {
+      text-align: center;
+      padding: 40px 20px 30px;
+      background: linear-gradient(135deg, #ff4d9d 0%, #c2185b 50%, #7b1fa2 100%);
+      border-radius: 0 0 40px 40px;
+      box-shadow: 0 10px 30px rgba(194, 24, 91, 0.35);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* destello decorativo */
+    .header-tatis::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -30%;
+      width: 60%;
+      height: 200%;
+      background: rgba(255, 255, 255, 0.12);
+      transform: rotate(25deg);
+      animation: brillo 6s ease-in-out infinite;
+    }
+
+    @keyframes brillo {
+      0%, 100% { left: -40%; }
+      50% { left: 90%; }
+    }
+
+    .header-tatis h1 {
+      position: relative;
+      margin: 0;
+      font-family: "Georgia", "Playfair Display", serif;
+      font-size: clamp(2rem, 6vw, 3.5rem);
+      color: #fff;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                   0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .header-tatis h1 .marca {
+      display: block;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #fff, #ffd6ec, #fff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+      filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.35));
+    }
+
+    .header-tatis .autora {
+      position: relative;
+      display: block;
+      margin-top: 6px;
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      color: #ffe3f1;
+    }
+
+    .header-tatis .slogan {
+      position: relative;
+      margin: 14px 0 22px;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #fff;
+    }
+
+    .header-tatis .beneficios {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .header-tatis .beneficios span {
+      padding: 8px 18px;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 50px;
+      color: #fff;
+      font-size: 0.95rem;
+      backdrop-filter: blur(4px);
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    .header-tatis .beneficios span:hover {
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.3);
+    }
+  </style>
+
+  <header class="header-tatis">
+    <h1>
+      💄💋 <span class="marca">Tatis Makeup</span> 💋💄
+      <small class="autora">by Michell Jimenez</small>
+    </h1>
+
+    <p class="slogan">
+      Realza tu belleza, destaca tu estilo ✨ Maquillaje a un clic de distancia
+    </p>
+
+    <div class="beneficios">
+      <span>🚚 Envíos en Bogotá</span>
+      <span>🔒 Compra segura</span>
+      <span>📦 Seguimiento de pedido</span>
+    </div>
+  </header>
+
+  <div id="productos"></div>
+
+  <div class="carrito">
+    <h2>🧾 Carrito de Compras</h2>
+
+    <ul id="lista-carrito"></ul>
+
+    <div class="resumen">
+      <p>
+        Envío: <strong>Gratis</strong>
+      </p>
+
+      <p class="total">
+        Total: $<span id="total">0</span>
+      </p>
+    </div>
+
+    <button class="vaciar" onclick="vaciarCarrito()">
+      🧼 Vaciar Carrito
+    </button>
+
+    <button class="finalizar" onclick="finalizarCompra()">
+      ✅ Finalizar Compra
+    </button>
+  </div>
+
+  <script>
+    const productos = [
+      {
+        id: 1,
+        nombre: "Paleta De Sombras",
+        descripcion: "Sombras con texturas mates y satinadas de larga duración para resaltar tus ojos todos los días.",
+        precio: 30000,
+        imagen: "https://www.lcbeautycolombia.com/cdn/shop/files/20251222100012_2654_22.jpg?v=1783973893&width=600"
+      },
+      {
+        id: 2,
+        nombre: "Polvos Rosados Sueltos",
+        descripcion: "Sella tu rostro, controla el brillo y luce una piel suave con acabado aterciopelado todo el día.",
+        precio: 40000,
+        imagen: "https://vader-prod.s3.amazonaws.com/1733919787-huda-beauty-6759841247fc0.png"
+      },
+      {
+        id: 3,
+        nombre: "Rubor Liquido",
+        descripcion: "Rubor líquido de textura ligera, fácil de difuminar y con un aplicador super práctico para un acabado natural.",
+        precio: 15000,
+        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrcXhW6oIySayCobQcKn49n8AGeOWtYkgpYtV3L7N_J5VcfLQMBqXt3XM&s=10"
+      },
+      {
+        id: 4,
+        nombre: "Lip Gloss Con Brillos",
+        descripcion: "Luce unos labios ultra jugosos, hidratados y llenos de destellos.",
+        precio: 18000,
+        imagen: "https://locatelcolombia.vtexassets.com/arquivos/ids/371465/7703378009554_3_Brillo-Labial-Balsamo-Samy-Diamond-Samy-Fucsia-Brillante-X5g.jpg?v=638494865868530000"
+      },
+      {
+        id: 5,
+        nombre: "Iluminador Líquido",
+        descripcion: "Textura suave, alta pigmentación y fácil de difuminar para darle el toque final perfecto a tu maquillaje.",
+        precio: 18500,
+        imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTarKr4al8OkEXiaKJrFI1fWFL7o-ORF8fhEN_A-EsHKp1m3vKLYEAm9YYr&s=10"
+      }
+    ];
+
+
+    /* ==============================
+       CARRITO
+    ================================ */
+
+    const carrito = [];
+
+    const contenedorProductos = document.getElementById("productos");
+    const listaCarrito = document.getElementById("lista-carrito");
+    const totalCarrito = document.getElementById("total");
+
+
+    /* ==============================
+       MOSTRAR PRODUCTOS
+    ================================ */
+
+    function mostrarProductos() {
+
+      contenedorProductos.innerHTML = "";
+
+      productos.forEach(prod => {
+
+        const div = document.createElement("div");
+
+        div.className = "producto";
+
+        div.innerHTML = `
+          <img src="${prod.imagen}" alt="${prod.nombre}">
+
+          <h3>${prod.nombre}</h3>
+
+          <p class="descripcion">
+            ${prod.descripcion}
+          </p>
+
+          <p class="precio">
+            ${prod.precio.toLocaleString("es-CO", {
+              style: "currency",
+              currency: "COP",
+              minimumFractionDigits: 0
+            })}
+          </p>
+
+          <button onclick="agregarAlCarrito(${prod.id})">
+            Agregar al carrito
+          </button>
+        `;
+
+        contenedorProductos.appendChild(div);
+
+      });
+
+    }
+
+
+    /* ==============================
+       AGREGAR AL CARRITO
+    ================================ */
+
+    function agregarAlCarrito(id) {
+
+      const productoExistente =
+        carrito.find(p => p.id === id);
+
+      if (productoExistente) {
+
+        productoExistente.cantidad++;
+
+      } else {
+
+        const producto =
+          productos.find(p => p.id === id);
+
+        carrito.push({
+          ...producto,
+          cantidad: 1
+        });
+
+      }
+
+      actualizarCarrito();
+
+    }
+
+
+    /* ==============================
+       ACTUALIZAR CARRITO
+    ================================ */
+
+    function actualizarCarrito() {
+
+      listaCarrito.innerHTML = "";
+
+      let total = 0;
+      let totalItems = 0;
+
+      carrito.forEach(item => {
+
+        const li =
+          document.createElement("li");
+
+        const subtotal =
+          item.precio * item.cantidad;
+
+        li.textContent =
+          `${item.nombre} x${item.cantidad} — ` +
+          subtotal.toLocaleString("es-CO", {
+            style: "currency",
+            currency: "COP",
+            minimumFractionDigits: 0
+          });
+
+        listaCarrito.appendChild(li);
+
+        total += subtotal;
+        totalItems += item.cantidad;
+
+      });
+
+      totalCarrito.textContent =
+        total.toLocaleString("es-CO");
+
+      actualizarTituloCarrito(totalItems);
+
+    }
+
+
+    /* ==============================
+       CONTADOR DEL CARRITO
+    ================================ */
+
+    function actualizarTituloCarrito(cantidad) {
+
+      const titulo =
+        document.querySelector(".carrito h2");
+
+      titulo.textContent =
+        `🧾 Carrito de Compras (${cantidad})`;
+
+    }
+
+
+    /* ==============================
+       VACIAR CARRITO
+    ================================ */
+
+    function vaciarCarrito() {
+
+      if (carrito.length === 0) {
+
+        alert("🛒 El carrito ya está vacío.");
+
+        return;
+
+      }
+
+      if (
+        confirm(
+          "¿Estás seguro de que quieres vaciar el carrito?"
+        )
+      ) {
+
+        carrito.length = 0;
+
+        actualizarCarrito();
+
+      }
+
+    }
+
+
+    /* ==============================
+       FINALIZAR COMPRA
+    ================================ */
+
+    function finalizarCompra() {
+
+      if (carrito.length === 0) {
+
+        alert(
+          "🛒 Tu carrito está vacío. Agrega productos antes de finalizar la compra."
+        );
+
+        return;
+
+      }
+
+      alert(
+        "🎉 ¡Pedido simulado confirmado!\n\n" +
+        "En un eCommerce real, ahora entrarían en acción " +
+        "el backend, la pasarela de pago y la logística."
+      );
+
+      carrito.length = 0;
+
+      actualizarCarrito();
+
+    }
+
+
+    /* ==============================
+       INICIAR TIENDA
+    ================================ */
+
+    mostrarProductos();
+  </script>
+</body>
+</html>
